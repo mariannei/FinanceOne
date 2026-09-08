@@ -1,0 +1,195 @@
+// FinanceOne Semantic Model
+// Financial measures supporting General Ledger reconciliation,
+// P&L reporting, Budget and Forecast analysis, executive KPIs,
+// and interactive Entity/Location filtering.
+//
+// Measures are organized by functional area to document the
+// business logic implemented in the FinanceOne semantic model.
+
+// ============================================================================
+// CORE GENERAL LEDGER MEASURES
+// ============================================================================
+
+Total Debit =
+SUM ( fact_gl[debit_amount] )
+
+Total Credit =
+SUM ( fact_gl[credit_amount] )
+
+Net Amount =
+SUM ( fact_gl[signed_amount] )
+
+Journal Lines =
+COUNTROWS ( fact_gl )
+
+// ============================================================================
+// PROFIT & LOSS MEASURES
+// ============================================================================
+
+Revenue =
+CALCULATE (
+    -[Net Amount],
+    dim_account[financial_statement] = "Income Statement",
+    dim_account[account_type] = "Revenue"
+)
+
+Expenses =
+CALCULATE (
+    [Net Amount],
+    dim_account[financial_statement] = "Income Statement",
+    dim_account[account_type] = "Expense"
+)
+
+Net Income =
+[Revenue] - [Expenses]
+
+// ============================================================================
+// BUDGET MEASURES
+// ============================================================================
+
+Budget Amount =
+SUM ( fact_budget[budget_amount] )
+
+Revenue Budget =
+CALCULATE (
+    [Budget Amount],
+    dim_account[financial_statement] = "Income Statement",
+    dim_account[account_type] = "Revenue"
+)
+
+Expense Budget =
+CALCULATE (
+    [Budget Amount],
+    dim_account[financial_statement] = "Income Statement",
+    dim_account[account_type] = "Expense"
+)
+
+// ============================================================================
+// FORECAST MEASURES
+// ============================================================================
+
+Forecast Amount =
+SUM ( fact_forecast[forecast_amount] )
+
+Revenue Forecast =
+CALCULATE (
+    [Forecast Amount],
+    dim_account[financial_statement] = "Income Statement",
+    dim_account[account_type] = "Revenue"
+)
+
+Expense Forecast =
+CALCULATE (
+    [Forecast Amount],
+    dim_account[financial_statement] = "Income Statement",
+    dim_account[account_type] = "Expense"
+)
+
+// ============================================================================
+// FINANCIAL METRIC COMPARISON MEASURES
+// ============================================================================
+
+Actual =
+SWITCH (
+    SELECTEDVALUE ( 'Financial Metric'[Metric] ),
+    "Revenue", [Revenue],
+    "Expenses", [Expenses],
+    BLANK ()
+)
+
+Budget =
+SWITCH (
+    SELECTEDVALUE ( 'Financial Metric'[Metric] ),
+    "Revenue", [Revenue Budget],
+    "Expenses", [Expense Budget],
+    BLANK ()
+)
+
+Forecast =
+SWITCH (
+    SELECTEDVALUE ( 'Financial Metric'[Metric] ),
+    "Revenue", [Revenue Forecast],
+    "Expenses", [Expense Forecast],
+    BLANK ()
+)
+
+// ============================================================================
+// ACTUAL-TO-DATE / REMAINING FORECAST / FULL-YEAR OUTLOOK
+// FinanceOne reporting cutoff: FY2026, Period 8.
+// ============================================================================
+
+Actual Revenue To Date =
+CALCULATE (
+    [Revenue],
+    FILTER (
+        ALL ( dim_fiscal_period ),
+        dim_fiscal_period[fiscal_year] = 2026
+            && dim_fiscal_period[fiscal_period] <= 8
+    )
+)
+
+Actual Expenses To Date =
+CALCULATE (
+    [Expenses],
+    FILTER (
+        ALL ( dim_fiscal_period ),
+        dim_fiscal_period[fiscal_year] = 2026
+            && dim_fiscal_period[fiscal_period] <= 8
+    )
+)
+
+Remaining Revenue Forecast =
+CALCULATE (
+    [Revenue Forecast],
+    FILTER (
+        ALL ( dim_fiscal_period ),
+        dim_fiscal_period[fiscal_year] = 2026
+            && dim_fiscal_period[fiscal_period] > 8
+    )
+)
+
+Remaining Expense Forecast =
+CALCULATE (
+    [Expense Forecast],
+    FILTER (
+        ALL ( dim_fiscal_period ),
+        dim_fiscal_period[fiscal_year] = 2026
+            && dim_fiscal_period[fiscal_period] > 8
+    )
+)
+
+Revenue Full Year Outlook =
+[Actual Revenue To Date] + [Remaining Revenue Forecast]
+
+Expense Full Year Outlook =
+[Actual Expenses To Date] + [Remaining Expense Forecast]
+
+// ============================================================================
+// RECIPROCAL ENTITY / LOCATION SLICER HELPERS
+// ============================================================================
+
+Show Location for Selected Entity =
+VAR SelectedEntity =
+    SELECTEDVALUE ( dim_entity[entity_code] )
+VAR LocationEntity =
+    SELECTEDVALUE ( dim_location[entity_code] )
+RETURN
+    IF (
+        ISBLANK ( SelectedEntity )
+            || SelectedEntity = LocationEntity,
+        1,
+        0
+    )
+
+Show Entity for Selected Location =
+VAR SelectedLocationEntity =
+    SELECTEDVALUE ( dim_location[entity_code] )
+VAR CurrentEntity =
+    SELECTEDVALUE ( dim_entity[entity_code] )
+RETURN
+    IF (
+        ISBLANK ( SelectedLocationEntity )
+            || CurrentEntity = SelectedLocationEntity,
+        1,
+        0
+    )
