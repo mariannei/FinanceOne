@@ -37,15 +37,15 @@ The solution follows a Medallion architecture:
 
 ### Microsoft Fabric Workspace
 
-![FinanceOne Microsoft Fabric Workspace](screenshots/fabric-workspace.png)
+<img src="screenshots/fabric-workspace.png" alt="FinanceOne Microsoft Fabric Workspace" width="700">
 
 ### Dataflow Gen2 Transformation
 
-![FinanceOne Dataflow Gen2 Transformation](screenshots/dataflow-gen2.png)
+<img src="screenshots/dataflow-gen2.png" alt="FinanceOne Dataflow Gen2 Transformation" width="700">
 
 ### Direct Lake Semantic Model
 
-![FinanceOne Direct Lake Semantic Model](screenshots/semantic-model.png)
+<img src="screenshots/semantic-model.png" alt="FinanceOne Direct Lake Semantic Model" width="700">
 
 
 ## Technology Stack
