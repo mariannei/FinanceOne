@@ -60,6 +60,21 @@ The solution follows a Medallion architecture:
 - Semantic Models
 - DAX
 - Power BI
+
+## Fabric Source Control
+
+The FinanceOne Microsoft Fabric workspace is integrated with GitHub for source control. Native Fabric item definitions are versioned under the [`fabric/`](fabric/) directory.
+
+The repository includes source-controlled definitions for:
+
+- 7 Dataflow Gen2 transformation workflows
+- 5 Data Factory pipelines, including the end-to-end FinanceOne refresh pipeline
+- Bronze, Silver, and Gold Lakehouses
+- Direct Lake semantic model
+- CFO Dashboard and model-validation Power BI reports
+
+This provides version-controlled technical artifacts for the Fabric implementation in addition to the project documentation, validation SQL, DAX reference, Power Query transformation reference, screenshots, and portfolio case study.
+
 ## Data Model
 
 FinanceOne uses a dimensional model designed for financial reporting and analysis.
