@@ -1,0 +1,316 @@
+table fact_budget
+	lineageTag: bc6f60cb-1076-4e94-8673-33162d7adaa3
+	sourceLineageTag: [dbo].[fact_budget]
+
+	measure Budget =
+			
+			SUM ( fact_budget[budget_amount] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 7482227c-78ae-4103-b29f-0a4d0df4dd46
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Budget' =
+			
+			CALCULATE (
+			    [Budget],
+			    dim_account[account_type] = "Revenue"
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: f9084aab-42b4-4f60-86ee-ff150036e138
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expense Budget' =
+			
+			CALCULATE (
+			    [Budget],
+			    dim_account[account_type] = "Expense"
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 68fb6d73-8fdd-4437-a553-a7198907c714
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Variance' =
+			
+			[Revenue] - [Revenue Budget]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 30ad5821-7ed0-4dc6-a41d-f57ae697f793
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Variance %' =
+			
+			DIVIDE (
+			    [Revenue Variance],
+			    [Revenue Budget]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: c98c39f3-568d-4e6e-9edd-4caaa81057c3
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Expense Variance' =
+			
+			[Expense Budget] - [Expenses]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 5b98c21a-867b-45f1-842c-1b2230d487fb
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expense Variance %' =
+			
+			DIVIDE (
+			    [Expense Variance],
+			    [Expense Budget]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 89c4c1d1-5d50-4d46-a724-4ff0b3bfe93f
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Revenue Budget P8-P12' =
+			
+			CALCULATE (
+			    [Revenue Budget],
+			    FILTER (
+			        ALL ( dim_fiscal_period ),
+			        dim_fiscal_period[fiscal_year] = 2026
+			            && dim_fiscal_period[fiscal_period] >= 8
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: fe3e894e-18cf-4479-801d-9f426dfe1f97
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expense Budget P8-P12' =
+			
+			CALCULATE (
+			    [Expense Budget],
+			    FILTER (
+			        ALL ( dim_fiscal_period ),
+			        dim_fiscal_period[fiscal_year] = 2026
+			            && dim_fiscal_period[fiscal_period] >= 8
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: ecd1e3b7-32ce-447c-884c-584dc325fcb6
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column budget_id
+		dataType: string
+		lineageTag: b845736f-bb1a-445c-bf83-bf5aa0e97d65
+		sourceLineageTag: budget_id
+		summarizeBy: none
+		sourceColumn: budget_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		formatString: 0
+		lineageTag: e7f70f2b-a581-4190-aaf2-18b92cf124cf
+		sourceLineageTag: fiscal_year
+		summarizeBy: sum
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_period
+		dataType: int64
+		formatString: 0
+		lineageTag: cead0115-c825-423d-ac71-3637391f6d9b
+		sourceLineageTag: fiscal_period
+		summarizeBy: sum
+		sourceColumn: fiscal_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_code
+		dataType: string
+		lineageTag: 93d1d422-cf99-410b-9cfa-fceab712280d
+		sourceLineageTag: entity_code
+		summarizeBy: none
+		sourceColumn: entity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_number
+		dataType: string
+		lineageTag: 47d71e17-44be-409f-b325-02475879f433
+		sourceLineageTag: account_number
+		summarizeBy: none
+		sourceColumn: account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_code
+		dataType: string
+		lineageTag: d0ce5c7a-50e8-4a8f-8c3b-3c0a2bdc7a36
+		sourceLineageTag: department_code
+		summarizeBy: none
+		sourceColumn: department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget_amount
+		dataType: double
+		lineageTag: 32629068-b10e-4c4f-a749-194e8784603a
+		sourceLineageTag: budget_amount
+		summarizeBy: sum
+		sourceColumn: budget_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column matched_entity_code
+		dataType: string
+		lineageTag: 47af59c2-ebb0-4c4a-afb3-9dfc1588fb44
+		sourceLineageTag: matched_entity_code
+		summarizeBy: none
+		sourceColumn: matched_entity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_validation_status
+		dataType: string
+		lineageTag: 2b596bcd-4175-4514-a2af-32abf639b35d
+		sourceLineageTag: entity_validation_status
+		summarizeBy: none
+		sourceColumn: entity_validation_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_account_number
+		dataType: string
+		lineageTag: 0b9bea9e-954e-4a11-9dcf-38c7868b241d
+		sourceLineageTag: matched_account_number
+		summarizeBy: none
+		sourceColumn: matched_account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_validation_status
+		dataType: string
+		lineageTag: 61835b75-b514-4365-909b-396baf4892a7
+		sourceLineageTag: account_validation_status
+		summarizeBy: none
+		sourceColumn: account_validation_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_department_code
+		dataType: string
+		lineageTag: 4c0f174a-0145-46e4-94bc-1c54f9c2c9d3
+		sourceLineageTag: matched_department_code
+		summarizeBy: none
+		sourceColumn: matched_department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_period_id
+		dataType: string
+		lineageTag: 6a351a3f-c45c-4673-ab6d-f46bbc906460
+		sourceLineageTag: fiscal_period_id
+		summarizeBy: none
+		sourceColumn: fiscal_period_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column budget_validation_status
+		dataType: string
+		lineageTag: 4d8d5dd3-f903-42c5-8281-84f654a87be7
+		sourceLineageTag: budget_validation_status
+		summarizeBy: none
+		sourceColumn: budget_validation_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_id
+		dataType: string
+		lineageTag: 7684037d-e4d3-40ba-8d4a-8e332dcae5be
+		sourceLineageTag: entity_id
+		summarizeBy: none
+		sourceColumn: entity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_id
+		dataType: string
+		lineageTag: 726e89c8-ddb4-4000-8c2a-c768aeb0ca48
+		sourceLineageTag: department_id
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_fiscal_period_id
+		dataType: string
+		lineageTag: e5ad2497-0c4a-4b28-bb04-067f10c7f77b
+		sourceLineageTag: matched_fiscal_period_id
+		summarizeBy: none
+		sourceColumn: matched_fiscal_period_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fact_budget_key_status
+		dataType: string
+		lineageTag: ee2a6138-e324-42d1-b30a-9baf5ee18eec
+		sourceLineageTag: fact_budget_key_status
+		summarizeBy: none
+		sourceColumn: fact_budget_key_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_budget_account_number
+		dataType: string
+		lineageTag: ab91e850-f96e-46d3-900a-263f9a341959
+		sourceLineageTag: matched_budget_account_number
+		summarizeBy: none
+		sourceColumn: matched_budget_account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_budget = entity
+		mode: directLake
+		source
+			entityName: fact_budget
+			schemaName: dbo
+			expressionSource: 'DirectLake - FinanceOne_Gold_LH'
+

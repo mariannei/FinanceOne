@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "fc680923cd25f782b4da",
+  "position": {
+    "x": 1611.7980118631424,
+    "y": 187.86620783076884,
+    "z": 1000,
+    "height": 216.54135338345864,
+    "width": 279,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Net Income"
+                }
+              },
+              "queryRef": "fact_gl.Net Income",
+              "nativeQueryRef": "Net Income"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_gl"
+                  }
+                },
+                "Property": "Net Income"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

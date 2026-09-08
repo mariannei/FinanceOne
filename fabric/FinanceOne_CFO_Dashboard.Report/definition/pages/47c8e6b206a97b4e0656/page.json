@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "47c8e6b206a97b4e0656",
+  "displayName": "GL Detail",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "visualInteractions": [
+    {
+      "source": "f290875161eed4253670",
+      "target": "b71b1260183e1494d8df",
+      "type": "NoFilter"
+    }
+  ]
+}

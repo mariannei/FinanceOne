@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_FinanceOne_End_To_End_Refresh"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c3c191c0-982f-8cd6-48d3-27be1ad96c54"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_ERP_GL_Bronze_Ingestion"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1dc3f176-06f8-bf12-4e14-6acccec8c700"
+  }
+}

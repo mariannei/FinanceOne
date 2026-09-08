@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "FinanceOne_CFO_Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4b9a3f31-7aa9-af64-413d-742adf5f234d"
+  }
+}

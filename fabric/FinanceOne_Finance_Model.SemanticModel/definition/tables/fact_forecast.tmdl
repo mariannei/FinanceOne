@@ -1,0 +1,455 @@
+table fact_forecast
+	lineageTag: 06da3408-497a-4f3b-aa7f-098b2891527b
+	sourceLineageTag: [dbo].[fact_forecast]
+
+	measure Forecast =
+			
+			SUM ( fact_forecast[forecast_amount] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: af2db887-a4c1-4b64-b1b5-14861a908d47
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Forecast' =
+			
+			CALCULATE (
+			    [Forecast],
+			    dim_account[account_type] = "Revenue"
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: eff45026-1ce8-4f5c-a175-d52d4f0c4735
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expense Forecast' =
+			
+			CALCULATE (
+			    [Forecast],
+			    dim_account[account_type] = "Expense"
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: c46d3275-3500-468e-8f77-7a8ae429fd22
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue vs Forecast' =
+			
+			[Revenue] - [Revenue Forecast]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: ac061715-9307-4868-93b2-7e098689e753
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue vs Forecast %' =
+			
+			DIVIDE (
+			    [Revenue vs Forecast],
+			    [Revenue Forecast]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: df08584f-56a3-4b24-8aaf-74e3f2cab2f9
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Expense vs Forecast' =
+			
+			[Expense Forecast] - [Expenses]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: b25f1046-5a72-4366-b0bb-e91f97233a6f
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expense vs Forecast %' =
+			
+			DIVIDE (
+			    [Expense vs Forecast],
+			    [Expense Forecast]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 17685549-6f77-4065-bb0e-00bb19809da9
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Revenue Forecast vs Budget' =
+			
+			[Revenue Forecast] - [Revenue Budget]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 73ee13ab-c857-4e98-ac5a-9676d1beef0f
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Forecast vs Budget %' =
+			
+			DIVIDE (
+			    [Revenue Forecast vs Budget],
+			    [Revenue Budget]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 26e467d7-4072-40a7-ad10-679f09c43188
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Expense Forecast vs Budget' =
+			
+			[Expense Budget] - [Expense Forecast]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 3e9ffa61-d126-4295-926b-af7fdecb81f7
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expense Forecast vs Budget %' =
+			
+			DIVIDE (
+			    [Expense Forecast vs Budget],
+			    [Expense Budget]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 87b97be4-703a-4f5a-8f3f-cc3b43b04b8a
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Remaining Revenue Forecast' =
+			
+			CALCULATE (
+			    [Revenue Forecast],
+			    FILTER (
+			        ALL ( dim_fiscal_period ),
+			        dim_fiscal_period[fiscal_year] = 2026
+			            && dim_fiscal_period[fiscal_period] > 8
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: db0433ea-4076-4895-801e-73f14de1058f
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Remaining Expense Forecast' =
+			
+			CALCULATE (
+			    [Expense Forecast],
+			    FILTER (
+			        ALL ( dim_fiscal_period ),
+			        dim_fiscal_period[fiscal_year] = 2026
+			            && dim_fiscal_period[fiscal_period] > 8
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 86b9ea5e-ef75-4c9e-9c82-bbc506ccd0a4
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Full Year Outlook' =
+			
+			[Actual Revenue To Date] + [Remaining Revenue Forecast]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: efeb850a-22cd-4d9c-aa25-b7c06b04c3d0
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expense Full Year Outlook' =
+			
+			[Actual Expenses To Date] + [Remaining Expense Forecast]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 003a5675-6d15-46b2-8c1b-f147b6dd77f3
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Outlook Variance' =
+			
+			[Revenue Full Year Outlook] - [Revenue Budget P8-P12]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: e6af5757-3985-429f-9e21-14baaa68e7c1
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Expense Outlook Variance' =
+			
+			[Expense Budget P8-P12] - [Expense Full Year Outlook]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: cc97b0d5-293f-4f5f-82d4-fda2ad8447b9
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Full Year Budget Comparison' =
+			
+			SWITCH (
+			    SELECTEDVALUE ( 'Financial Metric'[Metric] ),
+			    "Revenue", [Revenue Budget P8-P12],
+			    "Expenses", [Expense Budget P8-P12],
+			    BLANK()
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2ed8416e-565b-4ba7-b259-ac7f241d7bdb
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Full Year Outlook Comparison' =
+			
+			SWITCH (
+			    SELECTEDVALUE ( 'Financial Metric'[Metric] ),
+			    "Revenue", [Revenue Full Year Outlook],
+			    "Expenses", [Expense Full Year Outlook],
+			    BLANK()
+			)
+		lineageTag: 17c5c11a-80b2-47cc-b131-4c256051a6c3
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column forecast_id
+		dataType: string
+		lineageTag: 25be5233-ba6c-47be-b455-b4d9685c4cd3
+		sourceLineageTag: forecast_id
+		summarizeBy: none
+		sourceColumn: forecast_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		formatString: 0
+		lineageTag: dad3b457-8cd5-4285-b6aa-2c39be8e28a4
+		sourceLineageTag: fiscal_year
+		summarizeBy: sum
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_period
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f37a597-bcf5-4f22-b921-4636ac075d1c
+		sourceLineageTag: fiscal_period
+		summarizeBy: sum
+		sourceColumn: fiscal_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_code
+		dataType: string
+		lineageTag: 0bc4bcb2-fb19-4b47-b2bb-fe30fc274ca5
+		sourceLineageTag: entity_code
+		summarizeBy: none
+		sourceColumn: entity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_number
+		dataType: string
+		lineageTag: 99ac0f91-c380-49bb-aa0f-1d8a3301a57e
+		sourceLineageTag: account_number
+		summarizeBy: none
+		sourceColumn: account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_code
+		dataType: string
+		lineageTag: 41492d5a-3a8d-418a-b868-e31718665ac0
+		sourceLineageTag: department_code
+		summarizeBy: none
+		sourceColumn: department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column forecast_amount
+		dataType: double
+		lineageTag: 6a89a8c3-0731-49e1-aa44-ddd075e1e64b
+		sourceLineageTag: forecast_amount
+		summarizeBy: sum
+		sourceColumn: forecast_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column matched_entity_code
+		dataType: string
+		lineageTag: 8e2d1cf1-55cd-482e-ba3a-c2f41f859892
+		sourceLineageTag: matched_entity_code
+		summarizeBy: none
+		sourceColumn: matched_entity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_validation_status
+		dataType: string
+		lineageTag: 08e69e5e-9a35-42cb-b0b7-9dea3e1a67c8
+		sourceLineageTag: entity_validation_status
+		summarizeBy: none
+		sourceColumn: entity_validation_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_account_number
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a951ec7-18d1-45ab-9a16-33a2fbbdaa2c
+		sourceLineageTag: matched_account_number
+		summarizeBy: sum
+		sourceColumn: matched_account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_validation_status
+		dataType: string
+		lineageTag: aaab2a01-51a6-4bfa-8505-59961c5dd182
+		sourceLineageTag: account_validation_status
+		summarizeBy: none
+		sourceColumn: account_validation_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_department_code
+		dataType: string
+		lineageTag: 8d94591c-9e49-4eea-b070-eb426eb2ba53
+		sourceLineageTag: matched_department_code
+		summarizeBy: none
+		sourceColumn: matched_department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_validation_status
+		dataType: string
+		lineageTag: 9983e362-801d-4041-b68c-192a39bd1107
+		sourceLineageTag: department_validation_status
+		summarizeBy: none
+		sourceColumn: department_validation_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_period_id
+		dataType: string
+		lineageTag: 71c14d13-eba4-4f36-b2fb-dd7b566e983d
+		sourceLineageTag: fiscal_period_id
+		summarizeBy: none
+		sourceColumn: fiscal_period_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column forecast_validation_status
+		dataType: string
+		lineageTag: 80fb373f-fc28-4464-a27a-f592220ae8dd
+		sourceLineageTag: forecast_validation_status
+		summarizeBy: none
+		sourceColumn: forecast_validation_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_id
+		dataType: string
+		lineageTag: 4c8c9457-11ac-497a-ba7d-21abbe6785b6
+		sourceLineageTag: entity_id
+		summarizeBy: none
+		sourceColumn: entity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_id
+		dataType: string
+		lineageTag: ce40e330-5822-4144-a194-1698398aee0b
+		sourceLineageTag: department_id
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_fiscal_period_id
+		dataType: string
+		lineageTag: 765f9314-bd12-47f3-861e-a1cde3aa18ac
+		sourceLineageTag: matched_fiscal_period_id
+		summarizeBy: none
+		sourceColumn: matched_fiscal_period_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fact_forecast_key_status
+		dataType: string
+		lineageTag: fb04804d-11f2-44a0-8b5d-13ef6482a78f
+		sourceLineageTag: fact_forecast_key_status
+		summarizeBy: none
+		sourceColumn: fact_forecast_key_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_forecast_account_number
+		dataType: string
+		lineageTag: 2909b1a0-b5c5-4fca-ae10-4286b56b492c
+		sourceLineageTag: matched_forecast_account_number
+		summarizeBy: none
+		sourceColumn: matched_forecast_account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_forecast = entity
+		mode: directLake
+		source
+			entityName: fact_forecast
+			schemaName: dbo
+			expressionSource: 'DirectLake - FinanceOne_Gold_LH'
+

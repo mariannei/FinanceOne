@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "FinanceOne_Model_Validation"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "5f12961e-181d-834a-499f-613c5f79da6c"
+  }
+}

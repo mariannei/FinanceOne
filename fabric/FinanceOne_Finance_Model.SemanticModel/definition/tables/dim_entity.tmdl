@@ -1,0 +1,83 @@
+table dim_entity
+	lineageTag: 3e8a1fde-82d0-4e54-acb5-e6283a8d1912
+	sourceLineageTag: [dbo].[dim_entity]
+
+	measure 'Show Entity for Selected Location' =
+			
+			VAR SelectedLocationEntity =
+			    SELECTEDVALUE ( dim_location[entity_code] )
+			VAR CurrentEntity =
+			    SELECTEDVALUE ( dim_entity[entity_code] )
+			RETURN
+			    IF (
+			        ISBLANK ( SelectedLocationEntity )
+			            || CurrentEntity = SelectedLocationEntity,
+			        1,
+			        0
+			    )
+		formatString: 0
+		lineageTag: a7971ac4-835c-4827-8d77-b7237d3138cb
+
+		changedProperty = Name
+
+	column entity_id
+		dataType: string
+		lineageTag: 85d0d9d0-274c-4035-b560-108580b7b27f
+		sourceLineageTag: entity_id
+		summarizeBy: none
+		sourceColumn: entity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_code
+		dataType: string
+		lineageTag: 0dd90a1c-9ff8-4916-908f-2bc9b97db764
+		sourceLineageTag: entity_code
+		summarizeBy: none
+		sourceColumn: entity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_name
+		dataType: string
+		lineageTag: 8406fd7e-0d06-47ac-88f4-cbe798307abc
+		sourceLineageTag: entity_name
+		summarizeBy: none
+		sourceColumn: entity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_type
+		dataType: string
+		lineageTag: d0b5b04a-01bc-417c-ba90-4825a07afc3d
+		sourceLineageTag: entity_type
+		summarizeBy: none
+		sourceColumn: entity_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column base_currency
+		dataType: string
+		lineageTag: 20645b39-91ca-4daf-bc0c-7c68ac3f2c1a
+		sourceLineageTag: base_currency
+		summarizeBy: none
+		sourceColumn: base_currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: string
+		lineageTag: ff706b17-a299-4c2f-ac6d-d5d22ff5c5cd
+		sourceLineageTag: is_active
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_entity = entity
+		mode: directLake
+		source
+			entityName: dim_entity
+			schemaName: dbo
+			expressionSource: 'DirectLake - FinanceOne_Gold_LH'
+

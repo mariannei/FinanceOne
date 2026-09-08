@@ -1,0 +1,83 @@
+table dim_account
+	lineageTag: 4b75219d-a5d8-4c4f-8fe5-3a1141532dcf
+	sourceLineageTag: [dbo].[dim_account]
+
+	column account_number
+		dataType: string
+		lineageTag: 5f2202a9-04d6-4148-ad07-ef205478f9b9
+		sourceLineageTag: account_number
+		summarizeBy: none
+		sourceColumn: account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_type
+		dataType: string
+		lineageTag: a436fe02-7d5e-4466-be81-9f64eda3afc8
+		sourceLineageTag: account_type
+		summarizeBy: none
+		sourceColumn: account_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column financial_statement
+		dataType: string
+		lineageTag: 18ecfe5d-9053-4ac3-85de-1d0c344cd295
+		sourceLineageTag: financial_statement
+		summarizeBy: none
+		sourceColumn: financial_statement
+
+		annotation SummarizationSetBy = Automatic
+
+	column normal_balance
+		dataType: string
+		lineageTag: 92c7385c-561a-4767-a19c-bf6be1164ecd
+		sourceLineageTag: normal_balance
+		summarizeBy: none
+		sourceColumn: normal_balance
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: string
+		lineageTag: 33a98d7b-697b-43c9-b588-66fefd99b2b1
+		sourceLineageTag: is_active
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_description
+		dataType: string
+		lineageTag: d42fbf3b-fb26-4dac-ac3a-b85e426487be
+		sourceLineageTag: account_description
+		summarizeBy: none
+		sourceColumn: account_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_group
+		dataType: string
+		lineageTag: 904713c6-c036-488a-b684-dbf37fb531ab
+		sourceLineageTag: account_group
+		summarizeBy: none
+		sourceColumn: account_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_name
+		dataType: string
+		lineageTag: a7485209-70ef-47f8-ab53-25b79d3b34ae
+		sourceLineageTag: account_name
+		summarizeBy: none
+		sourceColumn: account_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_account = entity
+		mode: directLake
+		source
+			entityName: dim_account
+			schemaName: dbo
+			expressionSource: 'DirectLake - FinanceOne_Gold_LH'
+

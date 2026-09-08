@@ -1,0 +1,85 @@
+table dim_location
+	lineageTag: b4458fb3-610b-4d3e-8cd7-28d1549fd8ba
+	sourceLineageTag: [dbo].[dim_location]
+
+	measure 'Show Location for Selected Entity' =
+			
+			VAR SelectedEntity =
+			    SELECTEDVALUE ( dim_entity[entity_code] )
+			VAR LocationEntity =
+			    SELECTEDVALUE ( dim_location[entity_code] )
+			RETURN
+			    IF (
+			        ISBLANK ( SelectedEntity )
+			            || SelectedEntity = LocationEntity,
+			        1,
+			        0
+			    )
+		formatString: 0
+		lineageTag: cc3a5b8f-b09d-4bcb-bb48-e1b2dc305797
+
+		changedProperty = Name
+
+	column location_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 861cf6e9-ee7c-4510-842d-54d7d0ffb580
+		sourceLineageTag: location_id
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_code
+		dataType: string
+		lineageTag: 199c3ea8-35ab-4710-8194-d31d708603f4
+		sourceLineageTag: location_code
+		summarizeBy: none
+		sourceColumn: location_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_name
+		dataType: string
+		lineageTag: 11a5f22f-2afc-46fa-8267-8dc393dd1dc7
+		sourceLineageTag: location_name
+		summarizeBy: none
+		sourceColumn: location_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_code
+		dataType: string
+		lineageTag: 65606cb9-d3ae-4eda-baf3-0d4520b5dd51
+		sourceLineageTag: entity_code
+		summarizeBy: none
+		sourceColumn: entity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 51691873-a21b-4985-b526-c1f9e840d43b
+		sourceLineageTag: is_active
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_type
+		dataType: string
+		lineageTag: b33835f5-8b81-4efd-9f95-9eb8b716427f
+		sourceLineageTag: location_type
+		summarizeBy: none
+		sourceColumn: location_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_location = entity
+		mode: directLake
+		source
+			entityName: dim_location
+			schemaName: dbo
+			expressionSource: 'DirectLake - FinanceOne_Gold_LH'
+

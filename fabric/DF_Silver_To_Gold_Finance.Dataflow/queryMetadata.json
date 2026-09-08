@@ -1,0 +1,84 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Silver_To_Gold_Finance",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "dim_account": {
+      "queryId": "e3d91111-ff5e-448a-ad1c-d1791a0413cf",
+      "queryName": "dim_account",
+      "loadEnabled": false
+    },
+    "dim_department": {
+      "queryId": "35204ade-057d-4ef6-bcb5-a70ec39a3a9c",
+      "queryName": "dim_department",
+      "loadEnabled": false
+    },
+    "dim_entity": {
+      "queryId": "c7252576-ac6c-4212-a17c-848db1e8164a",
+      "queryName": "dim_entity",
+      "loadEnabled": false
+    },
+    "dim_fiscal_period": {
+      "queryId": "d2194b40-9281-4711-8099-761977616b4f",
+      "queryName": "dim_fiscal_period",
+      "loadEnabled": false
+    },
+    "fact_gl": {
+      "queryId": "6aec1f1c-599d-48dc-a3be-641ff947ffe9",
+      "queryName": "fact_gl",
+      "loadEnabled": false
+    },
+    "dim_location": {
+      "queryId": "9ee0e58e-5f4c-4cec-8e36-1f30358a7e80",
+      "queryName": "dim_location",
+      "loadEnabled": false
+    },
+    "dim_entity_DataDestination": {
+      "queryId": "9fc6f57d-af0b-4446-9dcd-98654e7a3e2a",
+      "queryName": "dim_entity_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "dim_account_DataDestination": {
+      "queryId": "3a56d929-de7f-405a-af1e-a11e1358745a",
+      "queryName": "dim_account_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "dim_department_DataDestination": {
+      "queryId": "f8fb5aab-05a9-49a8-a3c4-377b2f6fe762",
+      "queryName": "dim_department_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "dim_location_DataDestination": {
+      "queryId": "274c0327-1f25-4734-8ad1-efb1aa659003",
+      "queryName": "dim_location_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "dim_fiscal_period_DataDestination": {
+      "queryId": "f66f99cb-8f98-44de-b1b8-632d74d7acc6",
+      "queryName": "dim_fiscal_period_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "fact_gl_DataDestination": {
+      "queryId": "5b4d0300-2641-49bd-a732-dc96a67cb969",
+      "queryName": "fact_gl_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"103847d4-ea09-41d1-9be6-38458804a062\",\"DatasourceId\":\"afa7be48-8280-4f79-8880-2b75c9587737\"}"
+    }
+  ]
+}

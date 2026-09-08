@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "PL_ERP_Budget_To_Bronze"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a57b8460-a4e9-8265-4adb-f3878648c82a"
+  }
+}

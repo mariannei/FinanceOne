@@ -1,0 +1,807 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "datasetSettings": {
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "erp_source/source_erp/reference/entities",
+                  "fileName": "entities.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "OverwriteSchema",
+            "applyVOrder": false,
+            "enableTimestampNtz": false,
+            "partitionOption": "None",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "bronze_entities"
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "entity_id",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "entity_id",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "entity_code",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "entity_code",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "entity_name",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "entity_name",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "entity_type",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "entity_type",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "base_currency",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "base_currency",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "is_active",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "is_active",
+                  "physicalType": "string"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy_Entities_To_Bronze",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "datasetSettings": {
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "erp_source/source_erp/reference/accounts",
+                  "fileName": "chart_of_accounts.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "OverwriteSchema",
+            "applyVOrder": false,
+            "enableTimestampNtz": false,
+            "partitionOption": "None",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "bronze_chart_of_accounts"
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "account_number",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "account_number",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "account_description",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "account_description",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "account_type",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "account_type",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "account_group",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "account_group",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "financial_statement",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "financial_statement",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "normal_balance",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "normal_balance",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "is_active",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "is_active",
+                  "physicalType": "string"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy_ChartOfAccounts_To_Bronze",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "datasetSettings": {
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "erp_source/source_erp/reference/departments",
+                  "fileName": "departments.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "OverwriteSchema",
+            "applyVOrder": false,
+            "enableTimestampNtz": false,
+            "partitionOption": "None",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "bronze_departments"
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "department_id",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "department_id",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "department_code",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "department_code",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "department_name",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "department_name",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "entity_code",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "entity_code",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "is_active",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "is_active",
+                  "physicalType": "string"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy_Departments_To_Bronze",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "datasetSettings": {
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "erp_source/source_erp/reference/locations",
+                  "fileName": "locations.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "OverwriteSchema",
+            "applyVOrder": false,
+            "enableTimestampNtz": false,
+            "partitionOption": "None",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "bronze_locations"
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "location_id",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "location_id",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "location_code",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "location_code",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "location_name",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "location_name",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "entity_code",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "entity_code",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "location_type",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "location_type",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "is_active",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "is_active",
+                  "physicalType": "string"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy_Locations_To_Bronze",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "datasetSettings": {
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "erp_source/source_erp/reference/fiscal_calendar",
+                  "fileName": "fiscal_calendar.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "OverwriteSchema",
+            "applyVOrder": false,
+            "enableTimestampNtz": false,
+            "partitionOption": "None",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "bronze_fiscal_calendar"
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "fiscal_period_id",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "fiscal_period_id",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "fiscal_year",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "fiscal_year",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "fiscal_period",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "fiscal_period",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "period_name",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "period_name",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "period_start_date",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "period_start_date",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "period_end_date",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "period_end_date",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "is_current_period",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "is_current_period",
+                  "physicalType": "string"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy_FiscalCalendar_To_Bronze",
+        "dependsOn": []
+      }
+    ]
+  }
+}

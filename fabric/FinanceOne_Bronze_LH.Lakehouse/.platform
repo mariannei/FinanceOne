@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "FinanceOne_Bronze_LH"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "80c64621-64c3-8d2b-4efd-1531fcfe2480"
+  }
+}

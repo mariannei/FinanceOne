@@ -1,0 +1,274 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "storeSettings": {
+              "type": "AzureBlobStorageReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "datasetSettings": {
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "folderPath": "erp_source/source_erp/general_ledger/journal_lines",
+                  "fileName": "gl_journal_lines.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Files"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "OverwriteSchema",
+            "applyVOrder": false,
+            "enableTimestampNtz": false,
+            "partitionOption": "None",
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "bronze_gl_journal_lines"
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "FinanceOne_Bronze_LH",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "80c64621-64c3-8d2b-4efd-1531fcfe2480",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "journal_id",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "journal_id",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "journal_date",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "journal_date",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "fiscal_year",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "fiscal_year",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "fiscal_period",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "fiscal_period",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "entity_code",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "entity_code",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "department_code",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "department_code",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "location_code",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "location_code",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "journal_line_number",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "journal_line_number",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "account_number",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "account_number",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "journal_type",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "journal_type",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "journal_description",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "journal_description",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "debit_amount",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "debit_amount",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "credit_amount",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "credit_amount",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "source_system",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "source_system",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "posted_status",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "posted_status",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "reference_number",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "reference_number",
+                  "physicalType": "string"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy_GL_JournalLines_To_Bronze",
+        "dependsOn": []
+      }
+    ]
+  }
+}

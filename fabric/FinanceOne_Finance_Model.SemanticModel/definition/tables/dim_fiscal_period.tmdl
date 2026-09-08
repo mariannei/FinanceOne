@@ -1,0 +1,79 @@
+table dim_fiscal_period
+	lineageTag: 74c25f12-95c4-4d1e-ae3d-20bca28604d5
+	sourceLineageTag: [dbo].[dim_fiscal_period]
+
+	column fiscal_period_id
+		dataType: string
+		lineageTag: 0913cff1-b76a-49e8-8b3f-d15baee86636
+		sourceLineageTag: fiscal_period_id
+		summarizeBy: none
+		sourceColumn: fiscal_period_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		formatString: 0
+		lineageTag: fd740709-9ff3-4f5d-a815-5a5b2358c6ce
+		sourceLineageTag: fiscal_year
+		summarizeBy: sum
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_period
+		dataType: int64
+		formatString: 0
+		lineageTag: fad4c6a7-aad6-4da7-9c0d-b7ee1a16052b
+		sourceLineageTag: fiscal_period
+		summarizeBy: sum
+		sourceColumn: fiscal_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_name
+		dataType: string
+		lineageTag: 7c8678d2-4756-40b6-be99-2d8005fa93de
+		sourceLineageTag: period_name
+		summarizeBy: none
+		sourceColumn: period_name
+		sortByColumn: fiscal_period
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_start_date
+		dataType: string
+		lineageTag: 74513057-e4f7-48b1-a97c-91714b160117
+		sourceLineageTag: period_start_date
+		summarizeBy: none
+		sourceColumn: period_start_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column period_end_date
+		dataType: string
+		lineageTag: d3c58c7f-57ee-4dc0-aacc-f3bd5cff8a97
+		sourceLineageTag: period_end_date
+		summarizeBy: none
+		sourceColumn: period_end_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_current_period
+		dataType: string
+		lineageTag: eb3896d5-a0f5-45de-a6c2-a6568b6dbafe
+		sourceLineageTag: is_current_period
+		summarizeBy: none
+		sourceColumn: is_current_period
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_fiscal_period = entity
+		mode: directLake
+		source
+			entityName: dim_fiscal_period
+			schemaName: dbo
+			expressionSource: 'DirectLake - FinanceOne_Gold_LH'
+

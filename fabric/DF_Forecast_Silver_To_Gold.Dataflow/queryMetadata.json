@@ -1,0 +1,45 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Forecast_Silver_To_Gold",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "fact_forecast": {
+      "queryId": "4dd834af-1c73-4f50-93a5-d4a45f56ec0a",
+      "queryName": "fact_forecast",
+      "loadEnabled": false
+    },
+    "dim_account": {
+      "queryId": "608bbf61-ac80-4ca7-bfbe-02b8b250c3c1",
+      "queryName": "dim_account"
+    },
+    "dim_department": {
+      "queryId": "77e82ca0-6868-49ff-986c-a2f9b754594c",
+      "queryName": "dim_department"
+    },
+    "dim_entity": {
+      "queryId": "473435b3-2df7-4f6e-99b9-3ff489bbf996",
+      "queryName": "dim_entity"
+    },
+    "dim_fiscal_period": {
+      "queryId": "ee147f2a-cae5-47cd-83aa-aea8b67d63ec",
+      "queryName": "dim_fiscal_period"
+    },
+    "fact_forecast_DataDestination": {
+      "queryId": "bef102d9-2ed8-4a7c-809f-d712ec1dfddc",
+      "queryName": "fact_forecast_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"103847d4-ea09-41d1-9be6-38458804a062\",\"DatasourceId\":\"afa7be48-8280-4f79-8880-2b75c9587737\"}"
+    }
+  ]
+}

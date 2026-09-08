@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "23dd113f06fa46e1ee09",
+  "position": {
+    "x": 521.55223880597021,
+    "y": 15.283582089552239,
+    "z": 2,
+    "height": 481.43283582089555,
+    "width": 355.34328358208955,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_department"
+                    }
+                  },
+                  "Property": "department_code"
+                }
+              },
+              "queryRef": "dim_department.department_code",
+              "nativeQueryRef": "department_code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_department"
+                    }
+                  },
+                  "Property": "department_name"
+                }
+              },
+              "queryRef": "dim_department.department_name",
+              "nativeQueryRef": "department_name"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Total Credit"
+                }
+              },
+              "queryRef": "fact_gl.Total Credit",
+              "nativeQueryRef": "Total Credit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Total Debit"
+                }
+              },
+              "queryRef": "fact_gl.Total Debit",
+              "nativeQueryRef": "Total Debit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Net Amount"
+                }
+              },
+              "queryRef": "fact_gl.Net Amount",
+              "nativeQueryRef": "Net Amount"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9808491f0b349e3279a2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_department"
+              }
+            },
+            "Property": "department_code"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b82108fd538ad0fb525d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_department"
+              }
+            },
+            "Property": "department_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "bf347a2ccb9cea099406",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_gl"
+              }
+            },
+            "Property": "Total Credit"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "d19373bae66a522dee11",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_gl"
+              }
+            },
+            "Property": "Total Debit"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "6393c002d412bfbb09e9",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_gl"
+              }
+            },
+            "Property": "Net Amount"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Forecast_Bronze_To_Silver",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "silver_forecast": {
+      "queryId": "c66571b0-51c8-4529-a4c6-a9a131eed10e",
+      "queryName": "silver_forecast",
+      "loadEnabled": false
+    },
+    "silver_chart_of_accounts": {
+      "queryId": "8dea0dd7-6f6a-4c32-a59b-d3a9e83bffe1",
+      "queryName": "silver_chart_of_accounts"
+    },
+    "silver_departments": {
+      "queryId": "17766774-cc1d-4aad-8c1e-f65de3448ead",
+      "queryName": "silver_departments"
+    },
+    "silver_entities": {
+      "queryId": "15126937-0ccb-47d9-a232-94aa9bec5e09",
+      "queryName": "silver_entities"
+    },
+    "silver_fiscal_calendar": {
+      "queryId": "a1130745-314c-40b4-a7c2-b9fa603db0a2",
+      "queryName": "silver_fiscal_calendar"
+    },
+    "silver_forecast_DataDestination": {
+      "queryId": "af6185fa-6b05-40fb-a3cc-a14f0b3e4b1d",
+      "queryName": "silver_forecast_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"103847d4-ea09-41d1-9be6-38458804a062\",\"DatasourceId\":\"afa7be48-8280-4f79-8880-2b75c9587737\"}"
+    }
+  ]
+}

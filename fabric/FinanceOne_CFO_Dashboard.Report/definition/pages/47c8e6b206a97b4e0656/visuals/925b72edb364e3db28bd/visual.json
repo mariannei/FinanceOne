@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "925b72edb364e3db28bd",
+  "position": {
+    "x": 7.9256965944272455,
+    "y": 945.139318885449,
+    "z": 4000,
+    "height": 120.8668730650155,
+    "width": 287.30650154798764,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Total Debit"
+                }
+              },
+              "queryRef": "fact_gl.Total Debit",
+              "nativeQueryRef": "Total Debit"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_gl"
+                  }
+                },
+                "Property": "Total Debit"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,394 @@
+table fact_gl
+	lineageTag: d30594e1-5b87-4fc3-b56f-f3b2e025a7ca
+	sourceLineageTag: [dbo].[fact_gl]
+
+	measure 'Total Debit' =
+			
+			SUM ( fact_gl[debit_amount] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 9521e233-a10d-4f72-a647-06a567939e9a
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Credit' =
+			
+			SUM ( fact_gl[credit_amount] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 98617f7e-0113-438d-90b5-3f62162bc195
+
+		changedProperty = Name
+
+		changedProperty = IsHidden
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Net Amount' =
+			
+			SUM ( fact_gl[signed_amount] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 6dc68180-6cc8-4cf8-b3cf-75a2683d9b7d
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Journal Line Count' =
+			
+			COUNTROWS ( fact_gl )
+		formatString: #,0
+		lineageTag: f6b94e73-1d08-45c6-b6cf-3f0ef4232dcc
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Journal Count' =
+			
+			DISTINCTCOUNT ( fact_gl[journal_id] )
+		formatString: #,0
+		lineageTag: 27e5197d-beaf-4c0f-88c8-05cf5111b01c
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure Revenue =
+			
+			CALCULATE (
+			    -[Net Amount],
+			    dim_account[financial_statement] = "Income Statement",
+			    dim_account[account_type] = "Revenue"
+			)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 6a0209f8-72b0-4d01-8ac4-3b5862600527
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Expenses = ```
+			
+			CALCULATE (
+			    [Net Amount],
+			    dim_account[financial_statement] = "Income Statement",
+			    dim_account[account_type] = "Expense"
+			) 
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: c6d6ed72-5ef9-4c57-8eb4-51d76cabadb3
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Net Income' =
+			
+			[Revenue] - [Expenses]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 3b908b33-db3e-423a-a602-931b38e4fd3d
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'P&L Amount' =
+			
+			VAR AccountType =
+			    SELECTEDVALUE ( dim_account[account_type] )
+			RETURN
+			    IF (
+			        ISINSCOPE ( dim_account[account_name] ),
+			        SWITCH (
+			            AccountType,
+			            "Revenue", -[Net Amount],
+			            "Expense", [Net Amount],
+			            BLANK()
+			        ),
+			        [Net Income]
+			    )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 4b0de8d0-173c-4177-b757-fd53b5b00507
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Actual Revenue To Date' =
+			
+			CALCULATE (
+			    [Revenue],
+			    FILTER (
+			        ALL ( dim_fiscal_period ),
+			        dim_fiscal_period[fiscal_year] = 2026
+			            && dim_fiscal_period[fiscal_period] <= 8
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2d58122a-4f7c-4d0b-af96-f611593d614a
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Actual Expenses To Date' = ```
+			
+			CALCULATE (
+			    [Expenses],
+			    FILTER (
+			        ALL ( dim_fiscal_period ),
+			        dim_fiscal_period[fiscal_year] = 2026
+			            && dim_fiscal_period[fiscal_period] <= 8
+			    )
+			)
+			
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 56ec0851-a02d-459f-9d4e-a52276da4c56
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column journal_id
+		dataType: string
+		lineageTag: 9305de64-22e0-4c04-bc56-972543aa9638
+		sourceLineageTag: journal_id
+		summarizeBy: none
+		sourceColumn: journal_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 8cdd1133-c09a-4884-ad31-5b953eb9bf5b
+		sourceLineageTag: fiscal_year
+		summarizeBy: sum
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_period
+		dataType: int64
+		formatString: 0
+		lineageTag: ec48bd12-27e4-473f-9fa8-a1c730e222a4
+		sourceLineageTag: fiscal_period
+		summarizeBy: sum
+		sourceColumn: fiscal_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_code
+		dataType: string
+		lineageTag: 5e1372cc-3d96-4c0e-a667-83143c374d05
+		sourceLineageTag: entity_code
+		summarizeBy: none
+		sourceColumn: entity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_number
+		dataType: string
+		lineageTag: 47053ddf-e1d4-4243-8a4b-fdf91f78edb4
+		sourceLineageTag: account_number
+		summarizeBy: none
+		sourceColumn: account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_code
+		dataType: string
+		lineageTag: 5ecbbb84-af10-4153-b8f0-68296f43acdb
+		sourceLineageTag: department_code
+		summarizeBy: none
+		sourceColumn: department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_code
+		dataType: string
+		lineageTag: e1ed35da-385e-42b2-b8a0-ebe68fa558c7
+		sourceLineageTag: location_code
+		summarizeBy: none
+		sourceColumn: location_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column debit_amount
+		dataType: double
+		lineageTag: 45a10c4e-5b0c-450b-b564-4c89f524dde1
+		sourceLineageTag: debit_amount
+		summarizeBy: sum
+		sourceColumn: debit_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column credit_amount
+		dataType: double
+		lineageTag: 933d2f86-3e6e-4901-881f-2ae9892d1db3
+		sourceLineageTag: credit_amount
+		summarizeBy: sum
+		sourceColumn: credit_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column entity_id
+		dataType: string
+		lineageTag: 4c681008-c3b1-4088-ba84-15a9c4d2ee2d
+		sourceLineageTag: entity_id
+		summarizeBy: none
+		sourceColumn: entity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_id
+		dataType: string
+		lineageTag: d3652563-369e-4362-a62e-79b6e37505c7
+		sourceLineageTag: department_id
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_id
+		dataType: int64
+		formatString: 0
+		lineageTag: def0cab1-382b-41ad-a130-6f54154bf598
+		sourceLineageTag: location_id
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_period_id
+		dataType: string
+		lineageTag: ab099bbd-7a8a-4c3e-bfb1-b4b9a118c8fa
+		sourceLineageTag: fiscal_period_id
+		summarizeBy: none
+		sourceColumn: fiscal_period_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fact_key_status
+		dataType: string
+		lineageTag: 70df42a9-3e19-4ea8-8197-44cdd3d88cfc
+		sourceLineageTag: fact_key_status
+		summarizeBy: none
+		sourceColumn: fact_key_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column journal_date
+		dataType: string
+		lineageTag: 83c97545-64a4-4bac-89e3-81ea20f07ba3
+		sourceLineageTag: journal_date
+		summarizeBy: none
+		sourceColumn: journal_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column journal_line_number
+		dataType: string
+		lineageTag: 5a729dc9-66ea-476d-9b3e-b54fc4630fff
+		sourceLineageTag: journal_line_number
+		summarizeBy: none
+		sourceColumn: journal_line_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column journal_type
+		dataType: string
+		lineageTag: 79abdeeb-2f7d-4b35-b261-869f94f66de2
+		sourceLineageTag: journal_type
+		summarizeBy: none
+		sourceColumn: journal_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column journal_description
+		dataType: string
+		lineageTag: 43d0664b-c563-4fec-9ae8-ceb42b2390f1
+		sourceLineageTag: journal_description
+		summarizeBy: none
+		sourceColumn: journal_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_system
+		dataType: string
+		lineageTag: 18f7758e-8375-4ec8-a1eb-5fef44b6a0b8
+		sourceLineageTag: source_system
+		summarizeBy: none
+		sourceColumn: source_system
+
+		annotation SummarizationSetBy = Automatic
+
+	column posted_status
+		dataType: string
+		lineageTag: b1f12cfa-8117-4fd8-bd3a-d8619106d12c
+		sourceLineageTag: posted_status
+		summarizeBy: none
+		sourceColumn: posted_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column reference_number
+		dataType: string
+		lineageTag: 317a96da-6214-4036-a496-0c5ed82c3f16
+		sourceLineageTag: reference_number
+		summarizeBy: none
+		sourceColumn: reference_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column matched_account_number
+		dataType: string
+		lineageTag: c51d38f4-5a44-4959-b93c-765d81e5e4f8
+		sourceLineageTag: matched_account_number
+		summarizeBy: none
+		sourceColumn: matched_account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column signed_amount
+		dataType: double
+		lineageTag: 1ed87cfe-ee47-421d-afb7-5aad6f6fb3ce
+		sourceLineageTag: signed_amount
+		summarizeBy: sum
+		sourceColumn: signed_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_gl = entity
+		mode: directLake
+		source
+			entityName: fact_gl
+			schemaName: dbo
+			expressionSource: 'DirectLake - FinanceOne_Gold_LH'
+

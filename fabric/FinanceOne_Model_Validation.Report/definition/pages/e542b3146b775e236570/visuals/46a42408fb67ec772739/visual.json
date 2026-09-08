@@ -1,0 +1,196 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "46a42408fb67ec772739",
+  "position": {
+    "x": 936.11940298507466,
+    "y": 15.283582089552239,
+    "z": 4,
+    "height": 481.43283582089555,
+    "width": 672.47761194029852,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_fiscal_period"
+                    }
+                  },
+                  "Property": "fiscal_year"
+                }
+              },
+              "queryRef": "dim_fiscal_period.fiscal_year",
+              "nativeQueryRef": "fiscal_year"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_fiscal_period"
+                    }
+                  },
+                  "Property": "fiscal_period"
+                }
+              },
+              "queryRef": "dim_fiscal_period.fiscal_period",
+              "nativeQueryRef": "fiscal_period"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_fiscal_period"
+                    }
+                  },
+                  "Property": "period_name"
+                }
+              },
+              "queryRef": "dim_fiscal_period.period_name",
+              "nativeQueryRef": "period_name"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Total Debit"
+                }
+              },
+              "queryRef": "fact_gl.Total Debit",
+              "nativeQueryRef": "Total Debit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Total Credit"
+                }
+              },
+              "queryRef": "fact_gl.Total Credit",
+              "nativeQueryRef": "Total Credit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Net Amount"
+                }
+              },
+              "queryRef": "fact_gl.Net Amount",
+              "nativeQueryRef": "Net Amount"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e62c62bf8ec724969f4a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_fiscal_period"
+              }
+            },
+            "Property": "fiscal_year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "8937de8fbae00fd9289e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_fiscal_period"
+              }
+            },
+            "Property": "fiscal_period"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "b4f821026490a6ecbdbd",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_fiscal_period"
+              }
+            },
+            "Property": "period_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "7b97ef7d3f8aea7a30a4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_gl"
+              }
+            },
+            "Property": "Total Debit"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "48c64381c960c3c73460",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_gl"
+              }
+            },
+            "Property": "Total Credit"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "c4f1aac36d395b547978",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_gl"
+              }
+            },
+            "Property": "Net Amount"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

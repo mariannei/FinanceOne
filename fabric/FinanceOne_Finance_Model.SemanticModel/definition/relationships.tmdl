@@ -1,0 +1,52 @@
+relationship 3de4ead8-4df3-1df0-67a5-3e27ce867fde
+	fromColumn: fact_gl.department_id
+	toColumn: dim_department.department_id
+
+relationship 1613a716-48a2-404b-26a7-c96a8e4d8148
+	fromColumn: fact_gl.location_id
+	toColumn: dim_location.location_id
+
+relationship eef490ff-f409-6f10-2d01-d90a2604651c
+	fromColumn: fact_gl.entity_id
+	toColumn: dim_entity.entity_id
+
+relationship 6774d064-bb47-e7e2-0513-36edaeaa70c9
+	fromColumn: fact_gl.fiscal_period_id
+	toColumn: dim_fiscal_period.fiscal_period_id
+
+relationship 287d2674-cefa-a918-a7d8-4e3991c4e8ac
+	fromColumn: fact_budget.entity_id
+	toColumn: dim_entity.entity_id
+
+relationship 175fe65c-06d7-2e51-7fba-7c20373b833d
+	fromColumn: fact_budget.department_id
+	toColumn: dim_department.department_id
+
+relationship 065d7386-3762-2db9-d4a0-cd0fdf77d136
+	fromColumn: fact_budget.fiscal_period_id
+	toColumn: dim_fiscal_period.fiscal_period_id
+
+relationship e2dbb730-ed16-3409-8471-4c189577e232
+	fromColumn: fact_gl.account_number
+	toColumn: dim_account.account_number
+
+relationship a52117b7-f08e-7cda-be02-21cabf252357
+	fromColumn: fact_budget.account_number
+	toColumn: dim_account.account_number
+
+relationship 65a828a9-31db-25f7-b8e2-39105103387d
+	fromColumn: fact_forecast.entity_code
+	toColumn: dim_entity.entity_code
+
+relationship 62ae5eb9-29fd-06f1-bfd5-156fb4458353
+	fromColumn: fact_forecast.department_code
+	toColumn: dim_department.department_code
+
+relationship a1fbe6ee-53cd-b4ec-61a6-bfeb0a587620
+	fromColumn: fact_forecast.account_number
+	toColumn: dim_account.account_number
+
+relationship 1d6c4933-698c-0aba-e8a5-470bc244c7c0
+	fromColumn: fact_forecast.fiscal_period_id
+	toColumn: dim_fiscal_period.fiscal_period_id
+

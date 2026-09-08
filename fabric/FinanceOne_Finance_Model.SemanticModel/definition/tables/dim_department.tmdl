@@ -1,0 +1,56 @@
+table dim_department
+	lineageTag: c079fbeb-cdd5-4dcb-b87d-719ddab5a738
+	sourceLineageTag: [dbo].[dim_department]
+
+	column department_id
+		dataType: string
+		lineageTag: 1d95323f-28a3-43bc-880e-92d7a08f7e25
+		sourceLineageTag: department_id
+		summarizeBy: none
+		sourceColumn: department_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_code
+		dataType: string
+		lineageTag: ddc8f8fa-dbee-449f-b677-b1ee5fb81b31
+		sourceLineageTag: department_code
+		summarizeBy: none
+		sourceColumn: department_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column department_name
+		dataType: string
+		lineageTag: 173a1617-6292-4066-989b-06d538072090
+		sourceLineageTag: department_name
+		summarizeBy: none
+		sourceColumn: department_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column entity_code
+		dataType: string
+		lineageTag: 878c2048-44db-4534-91a9-5edd49af2c27
+		sourceLineageTag: entity_code
+		summarizeBy: none
+		sourceColumn: entity_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: string
+		lineageTag: 0587665a-e0c3-4afc-92e1-938db67d568c
+		sourceLineageTag: is_active
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_department = entity
+		mode: directLake
+		source
+			entityName: dim_department
+			schemaName: dbo
+			expressionSource: 'DirectLake - FinanceOne_Gold_LH'
+

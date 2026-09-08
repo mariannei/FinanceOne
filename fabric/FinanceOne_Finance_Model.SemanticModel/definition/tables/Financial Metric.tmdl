@@ -1,0 +1,64 @@
+table 'Financial Metric'
+	lineageTag: b259c799-8a06-4e5c-a503-8db8fe9c324a
+
+	measure Actual =
+			
+			SWITCH (
+			    SELECTEDVALUE ( 'Financial Metric'[Metric] ),
+			    "Revenue", [Revenue],
+			    "Expenses", [Expenses],
+			    BLANK()
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 9d1938c1-ea66-4d1b-aea3-32b7fdd02c2d
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Budget Comparison' =
+			
+			SWITCH (
+			    SELECTEDVALUE ( 'Financial Metric'[Metric] ),
+			    "Revenue", [Revenue Budget],
+			    "Expenses", [Expense Budget],
+			    BLANK()
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 932d965b-6a32-40db-876b-d7aebe03d21e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Forecast Comparison' =
+			
+			SWITCH (
+			    SELECTEDVALUE ( 'Financial Metric'[Metric] ),
+			    "Revenue", [Revenue Forecast],
+			    "Expenses", [Expense Forecast],
+			    BLANK()
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 918cb437-cd5b-40af-93c1-456f7f9d88d8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Metric
+		lineageTag: 3f4b7ef0-e129-4a62-97ac-de6aff2ef326
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Financial Metric' = calculated
+		mode: import
+		source =
+				
+				DATATABLE (
+				    "Metric", STRING,
+				    {
+				        {"Revenue"},
+				        {"Expenses"}
+				    }
+				)
+
+	annotation PBI_Id = e156f11a5a78403295770ba60039748f
+

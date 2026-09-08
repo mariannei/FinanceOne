@@ -1,0 +1,45 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Budget_Silver_To_Gold",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "fact_budget": {
+      "queryId": "c94b4f11-1db4-4b7e-a81b-e3335d5fef08",
+      "queryName": "fact_budget",
+      "loadEnabled": false
+    },
+    "dim_account": {
+      "queryId": "3a6ab62c-a9d2-4c8c-bd62-6da6e8fe7694",
+      "queryName": "dim_account"
+    },
+    "dim_department": {
+      "queryId": "dcb0ef61-73c5-4061-adb8-c65d5af212f6",
+      "queryName": "dim_department"
+    },
+    "dim_entity": {
+      "queryId": "86ad193e-a42e-4e6d-ac33-4512d2802978",
+      "queryName": "dim_entity"
+    },
+    "dim_fiscal_period": {
+      "queryId": "5cc817cc-a2be-4318-9fe9-8aa4fa4c4201",
+      "queryName": "dim_fiscal_period"
+    },
+    "fact_budget_DataDestination": {
+      "queryId": "db6a1fd1-d131-4482-bdb7-b4745e814a29",
+      "queryName": "fact_budget_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"103847d4-ea09-41d1-9be6-38458804a062\",\"DatasourceId\":\"afa7be48-8280-4f79-8880-2b75c9587737\"}"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "01d9f7e6565e6463e2f7",
+  "position": {
+    "x": 295.23219814241486,
+    "y": 945.139318885449,
+    "z": 5000,
+    "height": 120.8668730650155,
+    "width": 287.30650154798764,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_gl"
+                    }
+                  },
+                  "Property": "Total Credit"
+                }
+              },
+              "queryRef": "fact_gl.Total Credit",
+              "nativeQueryRef": "Total Credit"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_gl"
+                  }
+                },
+                "Property": "Total Credit"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "05d5a6714ec0db66ebdb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_gl"
+              }
+            },
+            "Property": "Total Credit"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Reference_Bronze_To_Silver",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "silver_chart_of_accounts": {
+      "queryId": "88033201-acf0-40e7-b39b-db9301376483",
+      "queryName": "silver_chart_of_accounts",
+      "loadEnabled": false
+    },
+    "silver_departments": {
+      "queryId": "63617db1-a59f-41a2-9d58-c76bb4ed1f5a",
+      "queryName": "silver_departments",
+      "loadEnabled": false
+    },
+    "silver_entities": {
+      "queryId": "1c18ad65-3b2e-4563-9ca6-cb88eefd40b0",
+      "queryName": "silver_entities",
+      "loadEnabled": false
+    },
+    "silver_fiscal_calendar": {
+      "queryId": "afb6d74e-45f7-40bb-a923-8d9dbfd75b47",
+      "queryName": "silver_fiscal_calendar",
+      "loadEnabled": false
+    },
+    "silver_locations": {
+      "queryId": "11090b4d-e33f-4c0b-9ed5-4d7356f6a2b5",
+      "queryName": "silver_locations",
+      "loadEnabled": false
+    },
+    "silver_entities_DataDestination": {
+      "queryId": "2e4f2fa6-5bc8-4dac-822a-e74ab4bb3f6c",
+      "queryName": "silver_entities_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "silver_chart_of_accounts_DataDestination": {
+      "queryId": "5b30c047-12f7-4e75-8d0d-7cd95933c136",
+      "queryName": "silver_chart_of_accounts_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "silver_departments_DataDestination": {
+      "queryId": "08f472a0-4841-4b6b-a312-73584ec8beb7",
+      "queryName": "silver_departments_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "silver_locations_DataDestination": {
+      "queryId": "0eb728c3-d3cd-4a60-be30-0d3fbd44213b",
+      "queryName": "silver_locations_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "silver_fiscal_calendar_DataDestination": {
+      "queryId": "e5c93c07-3430-46cf-9940-4ef608b81ad1",
+      "queryName": "silver_fiscal_calendar_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "silver_gl_reference_validation": {
+      "queryId": "c12847fa-3370-49c7-9fad-de948a1f0856",
+      "queryName": "silver_gl_reference_validation",
+      "loadEnabled": false
+    },
+    "silver_gl_reference_validation_DataDestination": {
+      "queryId": "12c91e8b-fdcc-4728-997e-161c7389171b",
+      "queryName": "silver_gl_reference_validation_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"103847d4-ea09-41d1-9be6-38458804a062\",\"DatasourceId\":\"afa7be48-8280-4f79-8880-2b75c9587737\"}"
+    }
+  ]
+}
