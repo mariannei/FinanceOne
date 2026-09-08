@@ -29,6 +29,25 @@ The solution follows a Medallion architecture:
 - **Direct Lake:** Semantic modeling over Fabric data without traditional import-mode duplication
 - **Power BI:** CFO-level financial reporting and General Ledger analysis
 
+## Solution Preview
+
+### CFO Executive Dashboard
+
+![FinanceOne CFO Executive Dashboard](screenshots/cfo-executive-dashboard.png)
+
+### Microsoft Fabric Workspace
+
+![FinanceOne Microsoft Fabric Workspace](screenshots/fabric-workspace.png)
+
+### Dataflow Gen2 Transformation
+
+![FinanceOne Dataflow Gen2 Transformation](screenshots/dataflow-gen2.png)
+
+### Direct Lake Semantic Model
+
+![FinanceOne Direct Lake Semantic Model](screenshots/semantic-model.png)
+
+
 ## Technology Stack
 
 - Microsoft Fabric
